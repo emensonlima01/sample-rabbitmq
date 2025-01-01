@@ -2,7 +2,7 @@
 
 public interface IRabbitMqConnectionManager
 {
-    Task<IConnection> CreateAsync();
+    Task<IConnection> CreateAsync(Uri uri);
 
     Task CloseAsync();
 }

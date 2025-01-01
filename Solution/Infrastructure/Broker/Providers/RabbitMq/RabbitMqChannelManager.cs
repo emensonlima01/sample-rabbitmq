@@ -6,11 +6,11 @@ public class RabbitMqChannelManager(IRabbitMqConnectionManager rabbitMqConnectio
     private readonly ConcurrentDictionary<int, IChannel> _channels = [];
     private IConnection? _connection;
 
-    public async Task<IChannel> CreateAsync(CreateChannelOptions createChannelOptions)
+    public async Task<IChannel> CreateAsync(CreateChannelOptions createChannelOptions, Uri uri)
     {
         try
         {
-            _connection = await _connectionManager.CreateAsync().ConfigureAwait(false);
+            _connection = await _connectionManager.CreateAsync(uri).ConfigureAwait(false);
 
             var channel = await _connection.CreateChannelAsync(createChannelOptions).ConfigureAwait(false);
 

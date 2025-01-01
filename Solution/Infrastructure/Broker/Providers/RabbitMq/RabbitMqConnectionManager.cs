@@ -1,21 +1,18 @@
-﻿using RabbitMQ.Client;
+﻿namespace Infrastructure.Broker.Providers.RabbitMq;
 
-namespace Infrastructure.Broker.Providers.RabbitMq;
-
-public sealed class RabbitMqConnectionManager(Uri uri)
+public sealed class RabbitMqConnectionManager : IRabbitMqConnectionManager
 {
     private IConnection? _connection;
-    private readonly Uri _uri = uri;
     private static readonly string AppName = AppDomain.CurrentDomain.FriendlyName.ToString();
     private static readonly string MachineName = Environment.MachineName.ToString();
 
-    public async Task<IConnection> CreateAsync()
+    public async Task<IConnection> CreateAsync(Uri uri)
     {
         try
         {
             var connectionFactory = new ConnectionFactory
             {
-                Uri = _uri,
+                Uri = uri,
                 ClientProvidedName = $"MachineName:{MachineName} - AppName:{AppName}"
             };
 

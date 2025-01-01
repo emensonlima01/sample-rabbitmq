@@ -2,7 +2,7 @@
 
 public interface IRabbitMqChannelManager
 {
-    Task<IChannel> CreateAsync(CreateChannelOptions createChannelOptions);
+    Task<IChannel> CreateAsync(CreateChannelOptions createChannelOptions, Uri uri);
 
     Task CloseAsync(int channelNumber);
 }
